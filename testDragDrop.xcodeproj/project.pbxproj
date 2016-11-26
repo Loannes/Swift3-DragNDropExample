@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01E11EF61DE9910100FAA2A4 /* DragNDropTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E11EF51DE9910100FAA2A4 /* DragNDropTable.swift */; };
 		8A8CBBAD1DE6E30300850213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8CBBAC1DE6E30300850213 /* AppDelegate.swift */; };
 		8A8CBBAF1DE6E30300850213 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8CBBAE1DE6E30300850213 /* ViewController.swift */; };
 		8A8CBBB21DE6E30300850213 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A8CBBB01DE6E30300850213 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01E11EF51DE9910100FAA2A4 /* DragNDropTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragNDropTable.swift; sourceTree = "<group>"; };
 		8A8CBBA91DE6E30300850213 /* testDragDrop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testDragDrop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A8CBBAC1DE6E30300850213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A8CBBAE1DE6E30300850213 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				8A8CBBB31DE6E30300850213 /* Assets.xcassets */,
 				8A8CBBB51DE6E30300850213 /* LaunchScreen.storyboard */,
 				8A8CBBB81DE6E30300850213 /* Info.plist */,
+				01E11EF51DE9910100FAA2A4 /* DragNDropTable.swift */,
 			);
 			path = testDragDrop;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01E11EF61DE9910100FAA2A4 /* DragNDropTable.swift in Sources */,
 				8A8CBBAF1DE6E30300850213 /* ViewController.swift in Sources */,
 				8A8CBBAD1DE6E30300850213 /* AppDelegate.swift in Sources */,
 			);
