@@ -11,22 +11,21 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var itemsArray : [String]
+    var tapDepth = 1
     
     @IBOutlet weak var tableView: UITableView!
     
     required init(coder aDecoder: NSCoder) {
         itemsArray = [String]()
         
-        let item1 = "Bananas"
-        let item2 = "Oranges"
-        let item3 = "Kale"
-        let item4 = "Milk"
-        let item5 = "Yogurt"
-        let item6 = "Crackers"
-        let item7 = "Cheese"
-        let item8 = "Carrots"
-        let item9 = "Ice Cream"
-        let item10 = "Olive Oil"
+        let item1 = "김밥천국"
+        let item2 = "중국집"
+        let item3 = "일식집"
+        let item4 = "선술집"
+        let item5 = "양식집"
+        let item6 = "아프리카식집"
+        let item7 = "북극식집"
+        let item8 = "우주식"
         
         itemsArray.append(item1)
         itemsArray.append(item2)
@@ -36,8 +35,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         itemsArray.append(item6)
         itemsArray.append(item7)
         itemsArray.append(item8)
-        itemsArray.append(item9)
-        itemsArray.append(item10)
         
         super.init(coder: aDecoder)!
     }
@@ -157,7 +154,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     // 즉 손가락의 위치가 indexPath를 변경하는 위치에 오면 그 즉시 실제 테이블 뷰의 셀 위치를 뒤바꾼다
                     // 손가락이 7번째 셀에서 6번째 셀로 올라가는 즉시 6, 7번 셀의 위치를 뒤바꾼다
                     tableView.moveRow(at: Path.initialIndexPath! as IndexPath, to: indexPath!)
-//                    print("\(Path.initialIndexPath!.row) : \(indexPath!.row)")
+                    //                    print("\(Path.initialIndexPath!.row) : \(indexPath!.row)")
                     
                     // long press이벤트가 시작했을때와 끝났을때 indexPath의 값이 변경 될 수 있으므로 이벤트가 종료되는 순간
                     // path.initialIndexPath의 값을 위에서 이미 변경시킨 테이블 뷰의 indexpath값으로 변경한다.
@@ -205,9 +202,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cellSnapshot : UIView = UIImageView(image: image)
         cellSnapshot.layer.masksToBounds = false
         cellSnapshot.layer.cornerRadius = 0.0
-        cellSnapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
-        cellSnapshot.layer.shadowRadius = 5.0
-        cellSnapshot.layer.shadowOpacity = 0.4
+//        cellSnapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
+//        cellSnapshot.layer.shadowRadius = 5.0
+//        cellSnapshot.layer.shadowOpacity = 0.4
         return cellSnapshot
     }
     
@@ -219,12 +216,55 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as UITableViewCell
-        cell.textLabel?.text = "\(indexPath.row) \(itemsArray[indexPath.row])"
+        cell.selectionStyle = .none
+        cell.textLabel?.text = "\(itemsArray[indexPath.row])"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.deselectRow(at: indexPath as IndexPath, animated: false)
+        
+        
+        if tapDepth < 4 {
+            let cellHeight = 44
+            
+            let changeFrame = CGRect(x: 0, y: 0 + (cellHeight * tapDepth), width: Int(tableView.frame.size.width), height: Int(self.view.frame.size.height) - (cellHeight * tapDepth))
+            
+            // 애니메이션 효과 시작
+            UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                tableView.frame = changeFrame
+            }, completion: { (finished) -> Void in
+                if finished {
+                    self.tapDepth += 1
+                }
+            })
+            
+            let cell = tableView.cellForRow(at: indexPath) as UITableViewCell!
+            cell?.backgroundColor = UIColor.blue
+            cell?.textLabel?.textColor = UIColor.white
+            let snapshot : UIView  = snapshotOfCell(inputView: cell!)
+            
+            // 셀의 중심 위치를 저장
+            let center = self.view.center
+            
+            print("dddddd=\(center)")
+            
+            // 스냅샷의 위치를 손가락 위치가 아닌 중앙에 생성되도록
+            snapshot.center = center
+            
+            // 스냅샷을 테이블 뷰에 추가함
+            self.view.addSubview(snapshot)
+            
+            // 애니메이션 효과 시작
+            let changeFrame2 = CGRect(x: 0, y: 22 + (cellHeight * (tapDepth-1)), width: Int(snapshot.frame.size.width), height: Int(snapshot.frame.size.height))
+            UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                snapshot.frame = changeFrame2
+            }, completion: { (finished) -> Void in
+                cell?.backgroundColor = UIColor.white
+                cell?.textLabel?.textColor = UIColor.black
+            })
+        }
     }
     
     
